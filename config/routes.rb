@@ -1,3 +1,8 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  get '/sample', to: 'sample#test'
+  devise_for :users, skip: [:sessions,:registrations] 
+  devise_scope :user do
+    post 'signin', to: 'users/sessions#create', as: :user_session
+  end
+ 
 end
