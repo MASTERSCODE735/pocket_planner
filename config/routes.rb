@@ -4,7 +4,6 @@ Rails.application.routes.draw do
   devise_scope :user do
     post 'sign_up', to: 'users_authentication/registrations#create'
     post 'sign_in', to: 'users_authentication/sessions#create'
-    post 'users/sign_up', to: 'users_authentication/registrations#new'
   end
 
   get '/users', to: 'users#index'
