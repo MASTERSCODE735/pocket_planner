@@ -8,4 +8,6 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :validatable
   include DeviseTokenAuth::Concerns::User
   belongs_to :user_group, optional: true
+  acts_as_tenant(:user_group)
+  scope :filter_name, -> (name) { where('first_name like ? OR last_name like ?',"%#{name}%","%#{name}%")}
 end

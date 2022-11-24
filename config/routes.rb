@@ -1,8 +1,13 @@
 Rails.application.routes.draw do
-  get '/sample', to: 'sample#test'
+
   devise_for :users, skip: [:sessions,:registrations] 
   devise_scope :user do
-    post 'signin', to: 'users/sessions#create', as: :user_session
+    post 'sign_up', to: 'users_authentication/registrations#create'
+    post 'sign_in', to: 'users_authentication/sessions#create'
+    post 'users/sign_up', to: 'users_authentication/registrations#new'
   end
- 
+
+  get '/users', to: 'users#index'
+  get '/users/:id', to: 'users#show'
+  resource :users
 end

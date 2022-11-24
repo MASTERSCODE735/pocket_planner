@@ -34,6 +34,12 @@ gem 'acts_as_tenant'
 
 gem 'trailblazer-endpoint'
 
+gem "dry-validation"
+
+gem 'will_paginate', '~> 3.3'
+
+gem 'has_scope', '~> 0.8.0'
+
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 # gem 'rack-cors'
 

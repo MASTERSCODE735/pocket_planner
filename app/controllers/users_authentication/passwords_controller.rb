@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Users::PasswordsController < DeviseTokenAuth::PasswordsController
+class UsersAuthentication::PasswordsController < DeviseTokenAuth::PasswordsController
   
   # GET /resource/password/new
   # def new

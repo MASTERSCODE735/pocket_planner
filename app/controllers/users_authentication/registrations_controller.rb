@@ -1,13 +1,15 @@
 # frozen_string_literal: true
 
-class Users::RegistrationsController < DeviseTokenAuth::RegistrationsController
+class UsersAuthentication::RegistrationsController < DeviseTokenAuth::RegistrationsController
+
   skip_before_action :authenticate_user!, :only => [:create]
   before_action :configure_sign_up_params, only: [:create]
+  
   # before_action :configure_account_update_params, only: [:update]
 
   # GET /resource/sign_up
   # def new
-  #   byebug
+
   # end
 
   #POST /resource
@@ -52,22 +54,19 @@ class Users::RegistrationsController < DeviseTokenAuth::RegistrationsController
       }
     end
 
-    if UserGroup.find_by(params(:user_group_name)).present?
+    if UserGroup.find_by(user_group_name: params[:user_group_name]).present?
       return render json: {
         error: "UserGroup already created",
         status: 200
       }
     end
 
-    user_group = UserGroup.create(params(:user_group_name))
+    user_group = UserGroup.create(user_group_name: params[:user_group_name])
     params[:user_group_id] = user_group.id
 
     devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name,
-       :last_name,:mobile_number,:user_group_id,:user_group_owner,:email,:password,:password_confirmation])
+      :last_name,:mobile_number,:user_group_id,:user_group_owner,:email,:password,:password_confirmation])
   end
-
-
-
 
   # If you have extra params to permit, append them to the sanitizer.
   # def configure_account_update_params

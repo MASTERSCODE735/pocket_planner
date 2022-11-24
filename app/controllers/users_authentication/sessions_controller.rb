@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
-class Users::SessionsController < DeviseTokenAuth::SessionsController
+class UsersAuthentication::SessionsController < DeviseTokenAuth::SessionsController
+  
+  skip_before_action :authenticate_user!, :only => [:create]
   before_action :configure_sign_in_params, only: [:create]
 
   # GET /resource/sign_in
