@@ -8,4 +8,16 @@ class ApplicationController < ActionController::API
     ActsAsTenant.current_tenant = current_user.user_group if user_signed_in?
   end
 
+  def custom_respond(result = nil)
+      response_hash = {
+      sucess: result&.success?,
+      data: result[:model],
+      messages: {
+        errors: result[:errors]
+      }
+    }
+    status_code =  result[:http_status_code] || 200
+    render json: response_hash, status: status_code
+  end
+
 end

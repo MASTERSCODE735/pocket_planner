@@ -1,19 +1,27 @@
 class UsersController < ApplicationController
 
     has_scope :filter_name, only: :index
+    
+    def create
+      result = Users::Operation::Create.({params: params})
+      custom_respond result
+    end
 
     def index
-      result = run Users::Operation::Index
-      render json: apply_scopes(result[:model])
+      result = Users::Operation::Index.({params: params, current_user: current_user})
+      result = (result[:model].nil? ? result : apply_scopes(result[:model]))
+      custom_respond result
     end
 
     def update
-      result = run Users::Operation::Update
-      render json: (result[:model])
+      params[:id] = current_user.id
+      result = Users::Operation::Update.({params: params})
+      custom_respond result
     end
 
-    def show   
-      result = run Users::Operation::Show
-      render json: (result[:model])
+    def show
+      result = Users::Operation::Show.({params: params})
+      custom_respond result
     end
+
 end
