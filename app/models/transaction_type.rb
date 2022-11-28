@@ -1,3 +1,14 @@
 class TransactionType < ApplicationRecord
-  acts_as_tenant :user_group
+
+    VALUES = {
+        expense: 1,
+        income: 2,
+        tranfer_in: 3,
+        tranfer_out: 4
+    }
+
+    def self.id_for(key)
+      VALUES[key]
+    end
+    
 end

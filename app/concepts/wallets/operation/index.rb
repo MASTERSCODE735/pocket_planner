@@ -9,7 +9,7 @@ module Wallets::Operation
     fail :error!
     
     def find_all_wallets(ctx, params:, **)
-      ctx[:model] = apply_scopes(Wallet.paginate(page: params[:page],per_page: 3),params)
+      ctx[:model] = apply_scopes(Wallet.paginate(page: params[:page],per_page: 10),params)
     end
 
     def error!(ctx, **)

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_28_035042) do
+ActiveRecord::Schema.define(version: 2022_11_28_171226) do
 
   create_table "budgets", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.string "budget_name", null: false
@@ -44,11 +44,12 @@ ActiveRecord::Schema.define(version: 2022_11_28_035042) do
     t.datetime "date", null: false
     t.bigint "user_group_id", null: false
     t.bigint "user_id", null: false
-    t.bigint "category_id", null: false
+    t.bigint "category_id"
     t.bigint "transaction_type_id", null: false
     t.bigint "wallet_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.decimal "amount", precision: 20, scale: 5, null: false
     t.index ["category_id"], name: "index_transactions_on_category_id"
     t.index ["transaction_type_id"], name: "index_transactions_on_transaction_type_id"
     t.index ["user_group_id"], name: "index_transactions_on_user_group_id"

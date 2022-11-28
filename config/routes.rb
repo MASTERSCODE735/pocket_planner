@@ -22,5 +22,7 @@ Rails.application.routes.draw do
   resources :users
   resources :categories
   resources :wallets
+  resources :transactions
+  resources :budgets
   
 end
