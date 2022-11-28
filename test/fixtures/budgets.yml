@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  budget_name: MyString
+  start_date: 2022-11-26
+  end_date: 2022-11-26
+  category: one
+  user_group: one
+
+two:
+  budget_name: MyString
+  start_date: 2022-11-26
+  end_date: 2022-11-26
+  category: two
+  user_group: two

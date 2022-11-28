@@ -61,9 +61,8 @@ class UsersAuthentication::RegistrationsController < DeviseTokenAuth::Registrati
       }
     end
 
-    user_group = UserGroup.create(user_group_name: params[:user_group_name])
-    params[:user_group_id] = user_group.id
-
+    user_group_created = UserGroup.create(user_group_name: params[:user_group_name])
+    params[:user_group_id] = user_group_created.id
     devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name,
       :last_name,:mobile_number,:user_group_id,:user_group_owner,:email,:password,:password_confirmation])
   end

@@ -10,7 +10,51 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_23_014928) do
+ActiveRecord::Schema.define(version: 2022_11_28_035042) do
+
+  create_table "budgets", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
+    t.string "budget_name", null: false
+    t.date "start_date", null: false
+    t.date "end_date", null: false
+    t.bigint "category_id", null: false
+    t.bigint "user_group_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["category_id"], name: "index_budgets_on_category_id"
+    t.index ["user_group_id"], name: "index_budgets_on_user_group_id"
+  end
+
+  create_table "categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
+    t.string "name", null: false
+    t.bigint "user_group_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_group_id"], name: "index_categories_on_user_group_id"
+  end
+
+  create_table "transaction_types", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "multiplier", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "transactions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
+    t.string "name", default: "", null: false
+    t.datetime "date", null: false
+    t.bigint "user_group_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "category_id", null: false
+    t.bigint "transaction_type_id", null: false
+    t.bigint "wallet_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["category_id"], name: "index_transactions_on_category_id"
+    t.index ["transaction_type_id"], name: "index_transactions_on_transaction_type_id"
+    t.index ["user_group_id"], name: "index_transactions_on_user_group_id"
+    t.index ["user_id"], name: "index_transactions_on_user_id"
+    t.index ["wallet_id"], name: "index_transactions_on_wallet_id"
+  end
 
   create_table "user_groups", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.string "user_group_name", default: "", null: false
@@ -41,5 +85,29 @@ ActiveRecord::Schema.define(version: 2022_11_23_014928) do
     t.index ["user_group_id"], name: "index_users_on_user_group_id"
   end
 
+  create_table "wallets", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
+    t.string "name", null: false
+    t.decimal "balance", precision: 20, scale: 5, default: "0.0"
+    t.decimal "opening_balance", precision: 20, scale: 5, default: "0.0"
+    t.decimal "in_amount", precision: 20, scale: 5, default: "0.0"
+    t.decimal "out_amount", precision: 20, scale: 5, default: "0.0"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id", null: false
+    t.bigint "user_group_id", null: false
+    t.index ["user_group_id"], name: "index_wallets_on_user_group_id"
+    t.index ["user_id"], name: "index_wallets_on_user_id"
+  end
+
+  add_foreign_key "budgets", "categories"
+  add_foreign_key "budgets", "user_groups"
+  add_foreign_key "categories", "user_groups"
+  add_foreign_key "transactions", "categories"
+  add_foreign_key "transactions", "transaction_types"
+  add_foreign_key "transactions", "user_groups"
+  add_foreign_key "transactions", "users"
+  add_foreign_key "transactions", "wallets"
   add_foreign_key "users", "user_groups"
+  add_foreign_key "wallets", "user_groups"
+  add_foreign_key "wallets", "users"
 end

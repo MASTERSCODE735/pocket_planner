@@ -1,5 +1,17 @@
 Rails.application.routes.draw do
 
+#   get 'transactions/index'
+#   get 'transactions/create'
+#   get 'transactions/show'
+#   get 'budgets/index'
+#   get 'budgets/create'
+#   get 'budgets/show'
+#   get 'wallets/index'
+#   get 'wallets/create'
+#   get 'wallets/show'
+#   get 'categories/index'
+#   get 'categories/create'
+#   get 'categories/show'
   devise_for :users, skip: [:sessions,:registrations] 
   
   devise_scope :user do
@@ -7,8 +19,8 @@ Rails.application.routes.draw do
     post 'sign_in', to: 'users_authentication/sessions#create'
   end
 
-  get '/users', to: 'users#index'
-  get '/users/:id', to: 'users#show'
-  resource :users
+  resources :users
+  resources :categories
+  resources :wallets
   
 end
