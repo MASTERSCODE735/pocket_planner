@@ -1,17 +1,5 @@
 Rails.application.routes.draw do
 
-#   get 'transactions/index'
-#   get 'transactions/create'
-#   get 'transactions/show'
-#   get 'budgets/index'
-#   get 'budgets/create'
-#   get 'budgets/show'
-#   get 'wallets/index'
-#   get 'wallets/create'
-#   get 'wallets/show'
-#   get 'categories/index'
-#   get 'categories/create'
-#   get 'categories/show'
   devise_for :users, skip: [:sessions,:registrations] 
   
   devise_scope :user do
@@ -24,5 +12,17 @@ Rails.application.routes.draw do
   resources :wallets
   resources :transactions
   resources :budgets
+
+  post 'expenses', to: 'expenses#create'
+  get 'expenses', to: 'expenses#index' 
+  get 'expenses/:id', to: 'expenses#show'
+
+  post 'incomes', to: 'incomes#create'
+  get 'incomes', to: 'incomes#index' 
+  get 'incomes/:id', to: 'incomes#show'
+
+  post 'transfers', to: 'transfers#create'
+  get 'transfers', to: 'transfers#index' 
+  get 'transfers/:id', to: 'transfers#show'
   
 end

@@ -1,7 +1,6 @@
 module Wallets::Operation
   class Create < Base::Operation::BaseApiOperation
     step Model(Wallet,:new)
-    step Policy::Pundit(Wallets::Policy, :check_owner?)
     step Contract::Build(constant: Wallets::Contract::Create)
     step Contract::Validate()
     step Contract::Persist()
