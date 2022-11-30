@@ -9,7 +9,8 @@ class ApplicationController < ActionController::API
   end
 
   def custom_respond(result = nil)
-      response_hash = {
+    response_hash = {
+      success: result.success?,
       data: result[:model],
       messages: {
         success: result[:success],

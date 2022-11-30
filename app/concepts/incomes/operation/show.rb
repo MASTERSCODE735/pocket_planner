@@ -2,11 +2,11 @@ module Incomes::Operation
   class Show < Base::Operation::BaseApiOperation
 
     step Policy::Pundit(Incomes::Policy, :show?)
-    step :show_expense
+    step :show_income
     fail :error!
 
-    def show_expense(ctx, params:, **)
-      ctx[:model] = Transaction.where('id = ? AND transaction_type_id <= ?', params[:id], params[:transaction_type_id])
+    def show_income(ctx, params:, **)
+      ctx[:model] = Transaction.where(id: params[:id]).joins(:transaction_type).where(transaction_types: {name: "income"})
       return false if ctx[:model].empty?
       true
     end

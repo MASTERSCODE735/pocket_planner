@@ -6,7 +6,7 @@ module Expenses::Operation
     fail :error!
 
     def show_expense(ctx, params:, **)
-      ctx[:model] = Transaction.where('id = ? AND transaction_type_id <= ?', params[:id], params[:transaction_type_id])
+      ctx[:model] = Transaction.where(id: params[:id]).joins(:transaction_type).where(transaction_types: {name: "expense"})
       return false if ctx[:model].empty?
       true
     end

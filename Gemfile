@@ -42,6 +42,10 @@ gem 'has_scope', '~> 0.8.0'
 
 gem 'pundit', '~> 2.2'
 
+gem 'reform', '~> 2.3.1'
+
+gem 'reform-rails', '~> 0.2.0.rc2'
+
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 # gem 'rack-cors'
 

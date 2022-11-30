@@ -14,4 +14,5 @@ class User < ActiveRecord::Base
   
   acts_as_tenant :user_group
   scope :filter_name, -> (name) { where('first_name like ? OR last_name like ?',"%#{name}%","%#{name}%")}
+  
 end

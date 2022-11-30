@@ -5,7 +5,7 @@ module Wallets::Operation
     step Contract::Validate()
     step Contract::Persist()
     step :success!
-    step :error!
+    fail :error!
 
     def error!(ctx, **)
       add_errors ctx, ctx["contract.default"]&.errors&.messages
