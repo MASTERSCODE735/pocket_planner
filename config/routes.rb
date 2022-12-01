@@ -15,6 +15,7 @@ Rails.application.routes.draw do
 
   post 'expenses', to: 'expenses#create'
   get 'expenses', to: 'expenses#index' 
+  get 'expenses/period-on-period', to: 'expenses#period'
   get 'expenses/:id', to: 'expenses#show'
 
   post 'incomes', to: 'incomes#create'

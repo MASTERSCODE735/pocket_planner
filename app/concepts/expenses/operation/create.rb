@@ -8,6 +8,7 @@ module Expenses::Operation
     step Contract::Validate()
     step :check_wallet_balance
     step Contract::Persist()
+    fail :error!
 
     def add_transaction_type_user_id(ctx, params:, current_user:, **)
       params[:user_id] = current_user.id
@@ -24,6 +25,12 @@ module Expenses::Operation
         return false
       end
       true
+    end
+
+    def error!(ctx, **)
+      error_messages= []
+      error_messages << ctx["contract.default"]&.errors&.messages
+      add_errors ctx, error_messages
     end
 
   end

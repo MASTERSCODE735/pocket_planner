@@ -13,5 +13,10 @@ class ExpensesController < ApplicationController
     result = Expenses::Operation::Show.({params: params, current_user: current_user})
     custom_respond result
   end
+
+  def period
+    result = Expenses::Operation::Period.({params: params, current_user: current_user})
+    custom_respond result  
+  end
 end
   

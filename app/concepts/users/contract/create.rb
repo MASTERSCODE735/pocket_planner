@@ -9,10 +9,22 @@ module Users::Contract
 
     validation do
       params do
-        required(:email).filled
         required(:password).filled
         required(:password_confirmation).filled
       end
     end
+
+    validation email: :default do
+      option :form
+  
+      params do
+        required(:email).filled
+      end
+  
+      rule(:email) do
+        key.failure('must be unique') if Category.where.not(id: form.model.id).where(email: value).exists?
+      end
+    end
+    
   end
 end
